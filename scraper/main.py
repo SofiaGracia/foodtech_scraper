@@ -6,6 +6,7 @@ import time
 import csv
 import os
 
+# Create dir data for csv
 os.makedirs("data", exist_ok=True)
 
 # Install and set the driver automatically
@@ -34,7 +35,7 @@ for p_c in product_contents:
 
     # Manage the possible lack of info
 
-    
+
     
     nutri_score.append(quality_infos[0].get_attribute("title"))
     nova_score.append(quality_infos[1].get_attribute("title"))
