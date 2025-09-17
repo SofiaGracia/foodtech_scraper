@@ -1,9 +1,8 @@
-#
+# main2.py
 import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
 from get_products import get_products as gp
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from backend.crud import *
 
@@ -23,7 +22,8 @@ def db():
 
     # Now we have some data in the db's table, so let's show it nicely
     print('we have data')
+    return table_data
         
 
-if __name__ == "__main__":
-    db()
+# if __name__ == "__main__":
+#     db()
