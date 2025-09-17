@@ -1,56 +1,29 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import csv
+#
+import sys
 import os
+from get_products import get_products as gp
 
-# Create dir data for csv
-os.makedirs("data", exist_ok=True)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# Install and set the driver automatically
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+from backend.crud import *
 
-# Open the page
-driver.get("https://es.openfoodfacts.org/")
+def db():
 
-# Product info
-name_products = []
-nutri_score = []
-nova_score = []
-green_score = []
+    # Check if table exists if not create it 
+    table_data = fetch_table()
+    if table_data == None:
+        create_tables()
+        table_data = []
 
-info = [nutri_score, nova_score, green_score]
+    # If the table exists but has no data ...
+    if len(table_data) == 0:
+        # ... scrape the web and insert info in the table
+        products_to_insert = gp()
+        insert_products(products_to_insert)
 
-# Wait for the elements to appear before scraping
-# Create a WebDriverWait object
-wait = WebDriverWait(driver=driver, timeout=10)
-product_contents = wait.until(EC.visibility_of_all_elements_located((By.CLASS_NAME,"list_product_content")))
+    # Now we have some data in the db's table, so let's show it nicely
+    print('we have data')
+        
 
-for p_c in product_contents:
-
-    # Name of the product
-    name_products.append(p_c.find_element(By.CLASS_NAME,"list_product_name").text)
-
-    quality_infos = p_c.find_elements(By.CLASS_NAME,"list_product_icons")
-
-    # Manage the possible lack of info
-    for i in range(3):
-        if i < len(quality_infos):
-            quality_info = quality_infos[i].get_attribute("title")
-            info[i].append(quality_info if quality_info is not None else "N/A")
-        else:
-            # In case there's not enough icons
-            info[i].append("N/A")
-
-# Close the browser
-driver.quit()
-
-data = zip(name_products, nutri_score, nova_score, green_score)
-
-with open('data/first_fifty.csv', 'w', newline='', encoding='utf-8') as f:
-    writer = csv.writer(f)
-    writer.writerow(["Nombre del producto", "Nutri-Score", "Nova-Score", "Green-Score"])
-    writer.writerows(data)
+if __name__ == "__main__":
+    db()
