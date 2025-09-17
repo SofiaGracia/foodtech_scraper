@@ -29,7 +29,6 @@ foodtech_scraper
 - **MySQL** (Database)
 - **Docker** (MySQL and easy deployment)
 - **React** (Frontend)
-- **Fetch API / Axios** to consume the API
 - **Git** for version control
 
 ---
