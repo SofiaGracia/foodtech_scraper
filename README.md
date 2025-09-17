@@ -71,7 +71,7 @@ npm start
 ```
 The frontend will run at http://localhost:3.
 
-### 📊 Rutes disponibles (Backend)
+### 📊 Available routes (Backend)
 | Method | Route   | Description               |
 |--------|---------|----------------------------|
 | GET    | `/`     | Connection test            |
