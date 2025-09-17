@@ -47,8 +47,8 @@ cd foodtech_scraper
 cd docker
 docker-compose up -d
 ```
-This will create a foodtech database at 127.0.0.1:3307
-User: fooduser
+This will create a foodtech database at 127.0.0.1:3307.
+User: fooduser.
 Password: password123
 
 ### 3️⃣ Backend (Flask)
@@ -69,9 +69,9 @@ cd frontend
 npm install
 npm start
 ```
-The frontend will run at http://localhost:3.
+The frontend will run at http://localhost:3000.
 
-### 📊 Available routes (Backend)
+### 📊 Available Routes (Backend)
 | Method | Route   | Description               |
 |--------|---------|----------------------------|
 | GET    | `/`     | Connection test            |
