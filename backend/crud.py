@@ -1,4 +1,3 @@
-# crud.py
 import sys
 import os
 
