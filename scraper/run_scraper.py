@@ -5,24 +5,18 @@ from get_products import get_products as gp
 
 from backend.crud import *
 
-def db():
-
-    # Check if table exists if not create it 
+# Checks if the table exists, if it doesn't, create the table
+def check_table_exists():
     table_data = fetch_table()
     if table_data == None:
-        create_tables()
-        table_data = []
+        create_table()
 
-    # If the table exists but has no data ...
-    if len(table_data) == 0:
-        # ... scrape the web and insert info in the table
-        products_to_insert = gp()
-        insert_products(products_to_insert)
+def get_table_info():
 
-    # Now we have some data in the db's table, so let's show it nicely
-    print('we have data')
-    return table_data
+    # Scrape the web and insert info in the table
+    products_to_insert = gp()
+    insert_products(products_to_insert)
+
+    # Return the info inserted
+    return fetch_table()
         
-
-# if __name__ == "__main__":
-#     db()

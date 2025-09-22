@@ -5,7 +5,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
 
 from db import Database  # import singleton class
 
-def create_tables():
+def create_table():
     db = Database()
     conn = db.get_connection()
     cursor = conn.cursor()
@@ -51,6 +51,26 @@ def fetch_table():
 
     return products_info
 
+def execute_insert(cursor, name, nutri_score, nova_score, green_score):
+
+    insert_data = f"""INSERT INTO products (name, nutri_score, nova_score, green_score) 
+        VALUES (%s, %s, %s, %s);"""
+
+    data_product = (name, nutri_score, nova_score, green_score)
+
+    # Insert data in DB:
+    cursor.execute(insert_data, data_product)
+
+def insert_one_product(name, nutri_score, nova_score, green_score):
+    db = Database()
+    conn = db.get_connection()
+    cursor = conn.cursor()
+
+    execute_insert(cursor, name, nutri_score, nova_score, green_score)
+        
+    conn.commit()
+    cursor.close()
+    db.close_connection()
 
 # Insert data. This function receives a zip object.
 def insert_products(products):
@@ -60,14 +80,7 @@ def insert_products(products):
 
     # Create the query to insert the products
     for name, nutri_score, nova_score, green_score in products:
-
-        insert_data = f"""INSERT INTO products (name, nutri_score, nova_score, green_score) 
-        VALUES (%s, %s, %s, %s);"""
-
-        data_product = (name, nutri_score, nova_score, green_score)
-
-        # Insert data in DB:
-        cursor.execute(insert_data, data_product)
+        execute_insert(cursor, name, nutri_score, nova_score, green_score)
         
     conn.commit()
     cursor.close()

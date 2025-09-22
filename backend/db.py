@@ -33,11 +33,11 @@ class Database:
         Database._instance = None
 
 
-# Ús recomanat:
+# Recomended use:
 
-# db = Database()                  # Obtenir instància singleton
-# conn = db.get_connection()       # Obtenir connexió
+# db = Database()                  # Get singleton instance
+# conn = db.get_connection()       # Get connection
 # cursor = conn.cursor()
 # cursor.execute("SELECT * FROM products")
 # results = cursor.fetchall()
-# db.close_connection()            # Tancar connexió quan acabis
+# db.close_connection()            # Close the connection when finished

@@ -71,7 +71,8 @@ npm start
 The frontend will run at http://localhost:3000.
 
 ### 📊 Available Routes (Backend)
-| Method | Route   | Description               |
-|--------|---------|----------------------------|
-| GET    | `/`     | Connection test            |
-| GET    | `/data` | Returns data from scraper   |
+| Method | Route   | Description                      |
+|--------|---------|----------------------------------|
+| GET    | `/`     | Connection test                  |
+| GET    | `/data` | Returns data from scraper         |
+| POST   | `/data` | Inserts new product into database |
